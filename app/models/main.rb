@@ -1,9 +1,11 @@
 require_relative '../../db/config'
 require_relative 'legislator'
+require 'twitter'
 # require_relative 'lib/sunlight_legislators_importer'
 
 def list_senators(select_state)
     legislator = Legislator.select("lastname","firstname","party").where("state = '#{select_state}'")
+    legislator
     puts "Senators:"
     legislator.where("title = 'Sen'")
 
@@ -11,6 +13,8 @@ def list_senators(select_state)
         puts "#{field.firstname}" + " " + "#{field.lastname}" + " " + "(" + "#{field.party}" + ")"
       end
 end
+
+list_senators("HI")
 
 def list_reps(select_state)
     legislator = Legislator.select("lastname","firstname","party").where("state = '#{select_state}'")
@@ -54,7 +58,7 @@ def state_dist
 
 end
 
-state_dist
+# state_dist
 
 def count
   p senators = Legislator.where("title = 'Sen'").count
